@@ -1,6 +1,8 @@
 FROM node:18-alpine as builder
 RUN npm install -g pnpm
-WORKDIR /app        
+WORKDIR /app
+# Install necessary system dependencies, including OpenSSL
+RUN apt-get update && apt-get install -y openssl
 COPY . .
 
 ENV npm_config_cache=/app
