@@ -1,8 +1,7 @@
-FROM node:18
+FROM node:18-alpine as builder
+RUN apk add --update --no-cache openssl1.1-compat
 RUN npm install -g pnpm
-WORKDIR /app
-# Install necessary system dependencies, including OpenSSL
-RUN apt-get update && apt-get install -y openssl
+WORKDIR /app        
 COPY . .
 
 ENV npm_config_cache=/app
