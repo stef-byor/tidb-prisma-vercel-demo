@@ -1,14 +1,17 @@
 FROM node:18-alpine as builder
 RUN npm install -g pnpm
+
+# Install OpenSSL
 RUN apk --no-cache add openssl
-WORKDIR /app        
+
+WORKDIR /app
 COPY . .
 
 ENV npm_config_cache=/app
 
 RUN if [ -f "./package-lock.json" ]; then npm install; \
     elif [ -f "./yarn.lock" ]; then yarn; \           
-    elif [ -f "./pnpm-lock.yaml" ]; then pnpm install;fi
+    elif [ -f "./pnpm-lock.yaml" ]; then pnpm install; fi
 
 COPY . .
 
