@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18
 RUN npm install -g pnpm
 WORKDIR /app
 # Install necessary system dependencies, including OpenSSL
