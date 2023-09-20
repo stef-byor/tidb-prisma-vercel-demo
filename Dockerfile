@@ -12,7 +12,7 @@ RUN if [ -f "./package-lock.json" ]; then npm install; \
 COPY . .
 
 # RUN npx eslint src
-# RUN npx prisma generate
+RUN npx prisma generate
 RUN npm run build
 
 RUN chown -R 10500:10500 "/app"
