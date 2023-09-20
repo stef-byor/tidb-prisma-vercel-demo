@@ -1,10 +1,7 @@
 FROM node:18-alpine as builder
 RUN npm install -g pnpm
-
-# Install OpenSSL
 RUN apk --no-cache add openssl
-
-WORKDIR /app
+WORKDIR /app        
 COPY . .
 
 ENV npm_config_cache=/app
@@ -15,8 +12,14 @@ RUN if [ -f "./package-lock.json" ]; then npm install; \
 
 COPY . .
 
-# RUN npx eslint src
+# Install Prisma CLI globally
+RUN npm install -g @prisma/cli
+
+# Debugging: List contents before and after code generation
+RUN ls -la
 RUN npx prisma generate
+RUN ls -la
+
 RUN npm run build
 
 RUN chown -R 10500:10500 "/app"
